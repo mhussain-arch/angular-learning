@@ -1,7 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 import { DUMMY_USERS } from '../dummy-users';
-
-const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
 
 @Component({
   selector: 'app-user',
@@ -12,11 +10,13 @@ const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
 
 // Create data for random user we will import later dynamically
 export class UserComponent {
-  // This property is now available in the user.component.html template
-  selectedUser = DUMMY_USERS[randomIndex];
-
-  // Create a getter which generates the path to the images
+  // required: true means that a value is required for input
+  // @Input({required: true}) avatar!: string;
+  // @Input({required: true}) name!: string;
+  avatar = input<string>(); // an input to this component
   get imagePath(){
-    return 'assets/users/' + this.selectedUser.avatar;
+    return 'assets/users/' + this.avatar;
+  }
+  onSelectUser(){
   }
 }
