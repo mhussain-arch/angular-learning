@@ -1,5 +1,6 @@
 import { Component, Input, Output, input, computed, EventEmitter } from '@angular/core';
 import { DUMMY_USERS } from '../dummy-users';
+import { type User } from './user.model';
 
 @Component({
   selector: 'app-user',
@@ -13,9 +14,8 @@ export class UserComponent {
   // required: true means that a value is required for input
   // We need to display task of a user we click
   // First get the id of the user
-  @Input({required: true}) id!: string;
-  @Input({required: true}) avatar!: string;
-  @Input({required: true}) name!: string;
+  @Input({required: true}) user!: User;
+  @Input({required: true}) selected!: boolean;
   @Output() select = new EventEmitter();
   // Below is an example of signal input
   // avatar = input.required<string>(); // an input to this component
@@ -23,9 +23,9 @@ export class UserComponent {
   // imagePath = computed(() => 'assets/users/' + this.avatar());
   
   get imagePath(){
-    return 'assets/users/' + this.avatar;
+    return 'assets/users/' + this.user.avatar;
   }
   onSelectUser(){
-    this.select.emit(this.id);
+    this.select.emit(this.user.id);
   }
 }
