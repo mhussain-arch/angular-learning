@@ -1,8 +1,12 @@
+@if(showModal){
+    <app-new-task (cancel)="onCancelAddTask()" (add)="onAddTask($event)"></app-new-task>
+}
+
 <section id="tasks">
     <header>
         <h1>{{ name }}'s Tasks</h1>
         <menu>
-            <button (click)="showFormModal">
+            <button (click)="onShowFormModal()">
                 Add Task
             </button>
         </menu>
