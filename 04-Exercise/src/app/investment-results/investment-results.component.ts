@@ -1,17 +1,15 @@
-import { Component } from '@angular/core';
-import { SharedService } from '../shared/shared.service';
-import { type AnnualData } from './annual-data.model';
+import { Component, computed, inject } from '@angular/core';
+import { InvestmentService } from '../shared/shared.service';
 
 @Component({
   selector: 'app-investment-results',
-  standalone: true,
-  imports: [],
   templateUrl: './investment-results.component.html',
   styleUrl: './investment-results.component.css'
 })
 export class InvestmentResultsComponent {
-  annualData?: AnnualData[] = this.sharedService.getAnnualData;
 
-  constructor(private sharedService: SharedService){
-  }
+  // Same as creating a service constructor
+  private investmentService = inject(InvestmentService);
+  
+  results = computed(() => this.investmentService.resultData());
 }

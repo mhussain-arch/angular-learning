@@ -1,35 +1,34 @@
 import { Component, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { calculateInvestmentResults } from '../../investment-results';
-import { InvestmentResultsComponent } from '../investment-results/investment-results.component';
-import { SharedService } from '../shared/shared.service';
+import { InvestmentService } from '../shared/shared.service';
 
 @Component({
   selector: 'app-user-input',
-  standalone: true,
-  imports: [FormsModule, InvestmentResultsComponent],
   templateUrl: './user-input.component.html',
   styleUrl: './user-input.component.css'
 })
 export class UserInputComponent {
 
-  constructor(private sharedService: SharedService){}
   // Use signals
   initialInvestment = signal('0');
   annualInvestment = signal('0');
   expectedReturn = signal('5');
   duration = signal('10');
-  calculateInvestment(){
-    this.sharedService.calculateAnnualData(
+
+  constructor(private investmentService: InvestmentService){}
+  
+  onCalculateInvestment(){
+    this.investmentService.calculateInvestmentResults({
       // The '+' before a string converts it to an integer
-      +this.initialInvestment(),
-      +this.annualInvestment(),
-      +this.expectedReturn(),
-      +this.duration()
-    )
-    console.log(this.sharedService.getAnnualData);
+      initialInvestment: +this.initialInvestment(),
+      duration: +this.annualInvestment(),
+      expectedReturn: +this.expectedReturn(),
+      annualInvestment: +this.duration()
+  })
+
+    this.initialInvestment = signal('0');
+    this.annualInvestment = signal('0');
+    this.expectedReturn = signal('5');
+    this.duration = signal('10');
   }
-  onCalculate(){
-    this.sharedService.setCalculated(true);
-  }
+
 }
