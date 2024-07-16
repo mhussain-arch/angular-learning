@@ -43,7 +43,7 @@ export class AvailablePlacesComponent implements OnInit {
     });
   }
   onSelectPlace(selectedPlace: Place) {
-    this.placesService.addPlaceToUserPlaces(selectedPlace.id)
+    this.placesService.addPlaceToUserPlaces(selectedPlace)
       .subscribe();
   }
 }
